@@ -1,4 +1,5 @@
 package se.distansakademin.oauth_0.controllers;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,11 +7,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.distansakademin.oauth_0.Cognito.Cognito;
+import se.distansakademin.oauth_0.models.User;
 
 @Controller
 public class UserController {
-
     @GetMapping("/")
+    public String showHomePage() {
+        return "redirect:/auth";
+    }
+
+    @GetMapping("/features")
+    public String showFeatures(@AuthenticationPrincipal User user) {
+        return "home/features";
+    }
+
+    @GetMapping("/future")
+    public String showFuture() {
+        return "home/future";
+    }
+
+    @GetMapping("/history")
+    public String showHistory() {
+        return "home/history";
+    }
+
+    @GetMapping("/auth")
     public String GetHome(Model model){
 
         if (Cognito.loggedInUser==null){
