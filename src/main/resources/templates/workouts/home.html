@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workouts</title>
+
+  <link rel="stylesheet" href="/resources/css/style.css">
+</head>
+<body>
+
+<div th:replace="fragments/header" />
+
+<main>
+
+  <a href="/workouts/new">Create Workout</a>
+  <div class="items-grid">
+
+    <article th:each="workout : ${workouts}" class="item">
+      <div>
+        <b th:text="${workout.name}"></b> <br>
+        <span th:text="${workout.description}"></span> <br>
+      </div>
+
+      <a th:href="@{/workouts/{id}(id=${workout.id})}">Show</a>
+      <a th:href="@{/workouts/{id}/edit(id=${workout.id})}">Edit</a>
+    </article>
+
+  </div>
+
+
+</main>
+
+<div th:replace="fragments/footer" />
+
+</body>
+</html>

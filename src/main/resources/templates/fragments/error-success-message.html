@@ -1,0 +1,7 @@
+<div class="alert alert-error" th:if="${param.error != null or error != null}">
+  <p th:text="${param.error} ?: ${error}"></p>
+</div>
+
+<div class="alert alert-success" th:if="${param.success != null or success != null}">
+  <p th:text="${param.success} ?: ${success}"></p>
+</div>
