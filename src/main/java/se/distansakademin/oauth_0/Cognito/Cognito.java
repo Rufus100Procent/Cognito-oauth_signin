@@ -96,11 +96,20 @@ public class Cognito {
         return false;
     }
     public static boolean ChangePassword(String oldPassword,String newPassword){
+        try {
+            ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.builder()
+                    .previousPassword(oldPassword)
+                    .proposedPassword(newPassword)
+                    .accessToken(loggedInUser.getRefreshToken())
+                    .build();
 
-
-
-        //Byta lösenord på cognito
-        return true;
+            getCognitoIdentityProviderClient().changePassword(changePasswordRequest);
+            System.out.println("Password has been changed successfully");
+            return true;
+        } catch (CognitoIdentityProviderException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            return false;
+        }
     }
 
     public static InitiateAuthResponse initiateAuth(String userName, String password) {
