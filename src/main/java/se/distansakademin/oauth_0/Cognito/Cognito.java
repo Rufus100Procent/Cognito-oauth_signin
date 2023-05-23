@@ -16,7 +16,7 @@ public class Cognito {
     private final CognitoIdentityProviderClient client ;
 
     private final String clientId = "";
-    private final String userPool = "";
+    private static final String userPool = "";
     public static User loggedInUser;
 
 
@@ -153,5 +153,21 @@ public class Cognito {
             System.exit(1);
         }
         return null;
+    }
+
+    public static boolean DeleteUser(String username) {
+        try {
+            AdminDeleteUserRequest deleteUserRequest = AdminDeleteUserRequest.builder()
+                    .username(username)
+                    .userPoolId(userPool)
+                    .build();
+
+            getCognitoIdentityProviderClient().adminDeleteUser(deleteUserRequest);
+            System.out.println("User has been deleted successfully");
+            return true;
+        } catch (CognitoIdentityProviderException e) {
+            System.err.println(e.awsErrorDetails().errorMessage());
+            return false;
+        }
     }
 }
