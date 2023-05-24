@@ -2,9 +2,7 @@ package se.distansakademin.oauth_0.controllers;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.distansakademin.oauth_0.Cognito.Cognito;
 import se.distansakademin.oauth_0.models.User;
@@ -136,6 +134,16 @@ public class UserController {
         }else {
             return "home";
 
+        }
+    }
+
+    @DeleteMapping("/users/{username}")
+    public String deleteUser(@PathVariable String username) {
+        boolean deletionResult = Cognito.DeleteUser(username);
+        if (deletionResult) {
+            return "User deleted successfully.";
+        } else {
+            return "Failed to delete the user.";
         }
     }
 
