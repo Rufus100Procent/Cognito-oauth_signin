@@ -13,27 +13,26 @@ import java.util.Map;
 
 public class Cognito {
 
-    private final CognitoIdentityProviderClient client ;
+    private final CognitoIdentityProviderClient client;
 
-    private final String clientId = "";
-    private static final String userPool = "";
+    private static final String clientId = "Clien-ID";
+    private static final String userPool = "Pool-ID";
     public static User loggedInUser;
-
 
     public Cognito() {
         this.client = getCognitoIdentityProviderClient();
     }
 
-    public static CognitoIdentityProviderClient getCognitoIdentityProviderClient(){
+    public static CognitoIdentityProviderClient getCognitoIdentityProviderClient() {
         var credentialProvider = ProfileCredentialsProvider.create();
 
-        CognitoIdentityProviderClient cognitoclient = CognitoIdentityProviderClient.builder()
+        return CognitoIdentityProviderClient.builder()
                 .region(Region.EU_NORTH_1)
                 .credentialsProvider(credentialProvider)
                 .build();
-        return cognitoclient;
     }
-    public static void Logout(){
+
+    public static void Logout() {
         loggedInUser = null;
     }
 
@@ -45,57 +44,55 @@ public class Cognito {
 
         List<AttributeType> userAttrsList = new ArrayList<>();
         userAttrsList.add(userAttrs);
+
         try {
             SignUpRequest signUpRequest = SignUpRequest.builder()
                     .userAttributes(userAttrsList)
                     .username(userName)
-                    .clientId("")
+                    .clientId(clientId)
                     .password(password)
                     .build();
 
             getCognitoIdentityProviderClient().signUp(signUpRequest);
-            System.out.println("User has been signed up ");
+            System.out.println("User has been signed up. Please check your email for the confirmation code.");
             return true;
-
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             return false;
         }
     }
 
     public static boolean ConfirmUser(String confirmationCode, String userName) {
+        System.out.println("Confirmation Code: " + confirmationCode);
+
         try {
             ConfirmSignUpRequest signUpRequest = ConfirmSignUpRequest.builder()
                     .confirmationCode(confirmationCode)
                     .username(userName)
+                    .clientId(clientId)
                     .build();
 
             getCognitoIdentityProviderClient().confirmSignUp(signUpRequest);
-            System.out.println(userName +" was confirmed");
+            System.out.println(userName + " was confirmed");
             return true;
-
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             return false;
         }
     }
-    public static boolean Login(String username,String password){
-
-        //Logga in på cognito
-
-        //Om inloggningen lyckades
-        if (initiateAuth(username , password)!= null)
-        {
+    public static boolean Login(String username, String password) {
+        if (initiateAuth(username, password) != null) {
             String refreshToken = "";
             String accessToken = "";
-            User user = new User(username,refreshToken);
+            User user = new User(username, refreshToken);
             loggedInUser = user;
             return true;
         }
 
         return false;
     }
-    public static boolean ChangePassword(String oldPassword,String newPassword){
+
+    public static boolean ChangePassword(String oldPassword, String newPassword) {
         try {
             ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.builder()
                     .previousPassword(oldPassword)
@@ -114,44 +111,25 @@ public class Cognito {
 
     public static InitiateAuthResponse initiateAuth(String userName, String password) {
         try {
-            Map<String,String> authParameters = new HashMap<>();
+            Map<String, String> authParameters = new HashMap<>();
             authParameters.put("USERNAME", userName);
             authParameters.put("PASSWORD", password);
 
             InitiateAuthRequest authRequest = InitiateAuthRequest.builder()
                     .authParameters(authParameters)
                     .authFlow(AuthFlowType.USER_PASSWORD_AUTH)
+                    .clientId("")
                     .build();
 
             InitiateAuthResponse response = getCognitoIdentityProviderClient().initiateAuth(authRequest);
-            System.out.println("Result Challenge is : " + response.challengeName() );
+            System.out.println("Result Challenge is: " + response.challengeName());
             return response;
 
-        } catch(CognitoIdentityProviderException e) {
+        } catch (CognitoIdentityProviderException e) {
             System.err.println(e.awsErrorDetails().errorMessage());
             System.exit(1);
         }
 
-        return null;
-    }
-
-
-    private static ConfirmSignUpResponse ConfirmUser(String username,
-                                                          String password,
-                                                          String userPoolId){
-        try {
-            ConfirmSignUpRequest request = ConfirmSignUpRequest.builder()
-                    .username(username)
-                    .build();
-
-            ConfirmSignUpResponse response = getCognitoIdentityProviderClient().confirmSignUp(request);
-            System.out.println("reponse: " + response);
-
-            return  response;
-        } catch (CognitoIdentityProviderException e){
-            System.err.println(e.awsErrorDetails().errorMessage());
-            System.exit(1);
-        }
         return null;
     }
 

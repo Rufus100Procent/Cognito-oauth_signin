@@ -13,7 +13,7 @@ import se.distansakademin.oauth_0.models.User;
 public class UserController {
     @GetMapping("/")
     public String showHomePage() {
-        return "redirect:/auth";
+        return "redirect:/register";
     }
 
     @GetMapping("/features")

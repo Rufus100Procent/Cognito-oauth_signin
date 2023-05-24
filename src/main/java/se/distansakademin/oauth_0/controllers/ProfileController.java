@@ -11,9 +11,9 @@ import java.security.Principal;
 public class ProfileController {
 
 
-    @GetMapping("/")
-    public String showHomePage() {
-
-        return "profile/home";
-    }
+//    @GetMapping("/")
+//    public String showHomePage() {
+//
+//        return "profile/home";
+//    }
 }
