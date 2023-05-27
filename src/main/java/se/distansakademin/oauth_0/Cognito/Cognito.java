@@ -15,8 +15,8 @@ public class Cognito {
 
     private final CognitoIdentityProviderClient client;
 
-    private static final String clientId = "5f7uqd8sh2aqphojvj9rr500st";
-    private static final String userPool = "eu-north-1_EaFBY8qvi";
+    private static final String clientId = "";
+    private static final String userPool = "";
     public static User loggedInUser;
 
     public Cognito() {
