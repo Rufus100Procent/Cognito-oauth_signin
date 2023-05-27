@@ -11,12 +11,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *
+ */
 public class Cognito {
 
     private final CognitoIdentityProviderClient client;
 
-    private static final String clientId = "";
-    private static final String userPool = "";
+    private static final String clientId = "Client-ID";
+    private static final String userPool = "User-ID";
     public static User loggedInUser;
 
     public Cognito() {
@@ -36,6 +39,16 @@ public class Cognito {
         loggedInUser = null;
     }
 
+    /**
+     *
+     * @param userName
+     * @param password
+     * @param email
+     * @return
+     * register a new user with AWS Cognito.
+     * It sends a request to the service with the provided username, password, and email.
+     * If the registration is successful, the user receives a confirmation code via email and account is listed in AWS Cognito Userpool
+     */
     public static boolean Register(String userName, String password, String email) {
         AttributeType userAttrs = AttributeType.builder()
                 .name("email")
@@ -93,6 +106,13 @@ public class Cognito {
         return false;
     }
 
+    /**
+     *
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     *  used to change a user's password. It sends a request to AWS Cognito to change the password using the old and new passwords.
+     */
     public static boolean ChangePassword(String oldPassword, String newPassword) {
         try {
             ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.builder()
@@ -134,6 +154,11 @@ public class Cognito {
         return null;
     }
 
+    /**
+     *  used to delete a user from AWS Cognito. It sends a request to delete the user with the specified username.
+     * @param username
+     * @return
+     */
     public static boolean DeleteUser(String username) {
         try {
             AdminDeleteUserRequest deleteUserRequest = AdminDeleteUserRequest.builder()
