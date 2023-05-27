@@ -16,7 +16,7 @@ public class UserController {
         if (Cognito.loggedInUser==null){
             return "redirect:/register";
         }else {
-            model.addAttribute("username",Cognito.loggedInUser.username);
+            model.addAttribute("username", Cognito.loggedInUser.getUsername());
             return "redirect:/home";
         }
     }
