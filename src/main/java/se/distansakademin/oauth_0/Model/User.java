@@ -5,15 +5,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public class User {
+    private String username;
+
+    private String refreshToken;
+    private String AccessToken;
     public User(String username, String refreshToken) {
         this.username = username;
         this.refreshToken = refreshToken;
     }
-
-    public String username;
-    public String refreshToken;
-    public String AccessToken;
-    public String imageUrl;
 
     public String getUsername() {
         return username;
