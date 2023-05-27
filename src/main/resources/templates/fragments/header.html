@@ -4,11 +4,11 @@
   </header>
 
   <nav>
-    <a href="/">Start</a>
+    <a href="/home">HomePage</a>
     <a sec:authorize="isAuthenticated()" href="/workouts">Workouts</a>
-    <a sec:authorize="isAuthenticated()" href="/profile">Profile</a>
+    <a sec:authorize="isAuthenticated()" href="/profile">Settings</a>
 
-    <a sec:authorize="!isAuthenticated()" href="/signin">Signin</a>
+    <a sec:authorize="!isAuthenticated()" href="/">Logout</a>
   </nav>
 </html>
 

@@ -1,6 +1,6 @@
 package se.distansakademin.oauth_0.Cognito;
 
-import se.distansakademin.oauth_0.models.User;
+import se.distansakademin.oauth_0.Model.User;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
@@ -15,8 +15,8 @@ public class Cognito {
 
     private final CognitoIdentityProviderClient client;
 
-    private static final String clientId = "Clien-ID";
-    private static final String userPool = "Pool-ID";
+    private static final String clientId = "5f7uqd8sh2aqphojvj9rr500st";
+    private static final String userPool = "eu-north-1_EaFBY8qvi";
     public static User loggedInUser;
 
     public Cognito() {
@@ -81,9 +81,10 @@ public class Cognito {
         }
     }
     public static boolean Login(String username, String password) {
-        if (initiateAuth(username, password) != null) {
-            String refreshToken = "";
-            String accessToken = "";
+        InitiateAuthResponse response = initiateAuth(username, password);
+        if ( response != null) {
+            String refreshToken = response.authenticationResult().refreshToken();
+            String accessToken = response.authenticationResult().accessToken();
             User user = new User(username, refreshToken);
             loggedInUser = user;
             return true;
@@ -117,8 +118,8 @@ public class Cognito {
 
             InitiateAuthRequest authRequest = InitiateAuthRequest.builder()
                     .authParameters(authParameters)
-                    .authFlow(AuthFlowType.USER_PASSWORD_AUTH)
-                    .clientId("")
+                    .authFlow(AuthFlowType.REFRESH_TOKEN_AUTH) // Use REFRESH_TOKEN_AUTH flow
+                    .clientId(clientId) // Specify your client ID
                     .build();
 
             InitiateAuthResponse response = getCognitoIdentityProviderClient().initiateAuth(authRequest);
@@ -148,4 +149,6 @@ public class Cognito {
             return false;
         }
     }
+
+
 }

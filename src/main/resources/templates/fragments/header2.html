@@ -1,0 +1,16 @@
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<header xmlns:sec="http://www.w3.org/1999/xhtml">
+  <h1>FitLog</h1>
+</header>
+
+<nav>
+  <a href="/">Logout</a>
+  <a sec:authorize="isAuthenticated()" href="/features">Features</a>
+  <a sec:authorize="isAuthenticated()" href="/history">History</a>
+  <a sec:authorize="isAuthenticated()" href="/future">Future</a>
+
+  <a sec:authorize="!isAuthenticated()" href="/home">HomePage</a>
+</nav>
+</html>
+
+

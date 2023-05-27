@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main>
+  <div th:replace="fragments/header"></div>
+
+  <p>
+    Welcome to FitLog, the ultimate fitness tracking solution for health enthusiasts of all levels. With FitLog,
+    you can easily save and track all of your workouts in one convenient location. Whether you're a seasoned
+    athlete or just starting out on your fitness journey, FitLog has everything you need to stay on track and
+    reach your goals.
+  </p>
+
+
+  <p style="text-align: center;">
+    <a href="/features">Features</a> |
+    <a href="/history">History</a> |
+    <a href="/future">Future</a>
+  </p>
+
+  <p>
+    With our intuitive mobile app and web platform, you can easily log your workouts, track your progress, and
+    stay motivated.
+    Our app allows you to record everything from cardio to weightlifting, and our advanced
+    analytics provide you with detailed insights into your performance and progress over time.
+  </p>
+
+    At FitLog, we understand that every fitness journey is unique.
+    That's why we offer personalized workout
+    plans and recommendations based on your fitness goals and preferences.
+    Our expert trainers and nutritionists
+    are here to support you every step of the way, whether you're looking to lose weight, build muscle, or just
+    stay in shape.
+  </p>
+
+  <p>
+    Join the FitLog community today and start achieving your fitness goals like never before.
+  </p>
+<!--  <form action="/changePassword?redirect=/login" method="POST" th:action="@{/changePassword}"-->
+<!--        class="change-password-form">-->
+<!--    <button type="submit" class="btn btn-success">Change Password</button>-->
+<!--  </form>-->
+</main>
+
+
+
+<div th:replace="fragments/footer"></div>
+
+</body>
+</html>

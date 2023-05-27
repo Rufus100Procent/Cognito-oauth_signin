@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Workout Details</title>
+  <link rel="stylesheet" href="/resources/css/style.css">
+</head>
+<body>
+    <div th:replace="fragments/header"></div>
+
+        <div class="container">
+          <h1>Workout Details</h1>
+          <p><strong>Name:</strong> <span th:text="${workout.name}"></span></p>
+          <p><strong>Description:</strong> <span th:text="${workout.description}"></span></p>
+            <form th:action="@{/workouts/{id}/delete}" method="post">
+            <button type="submit">Delete</button>
+          </form>
+          <a href="/workouts/home">back</a>
+        </div>
+    <div th:replace="fragments/footer"></div>
+
+</body>
+</html>

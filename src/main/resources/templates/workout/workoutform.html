@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Form</title>
+    <link rel="stylesheet" href="/resources/css/style.css">
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<h1>Add new workout</h1>
+<main>
+    <div class="solo-item">
+        <form th:action="@{/workouts/new}" method="post">
+            <input type="text" id="name" name="name" placeholder="Name"> <br>
+            <textarea id="description" name="description" placeholder="Description"></textarea><br>
+            <a href="/workouts/details" class="btn btn-success">Save</a>
+
+        </form>
+    </div>
+</main>
+<div th:replace="fragments/footer"></div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Workouts</title>
+  <link rel="stylesheet" href="/resources/css/style.css">
+</head>
+<body>
+<div th:replace="fragments/header"></div>
+<main>
+  <a href="/workouts/new" class="btn btn-success">Create Workout</a>
+  <div class="items-grid">
+    <article th:each="workout : ${workouts}" class="item">
+      <div>
+        <b th:text="${workout.name}"></b><br>
+        <span th:text="${workout.description}"></span><br>
+      </div>
+      <a th:href="@{/workouts/{id}(id=${workout.id})}">Show</a>
+      <a th:href="@{/workouts/{id}/edit(id=${workout.id})}">Edit</a>
+      <form th:action="@{/workouts/{id}/delete(id=${workout.id})}" method="post">
+        <button type="submit">Delete</button>
+      </form>
+    </article>
+  </div>
+</main>
+</body>
+</html>
