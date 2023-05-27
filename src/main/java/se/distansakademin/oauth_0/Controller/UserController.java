@@ -8,7 +8,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import se.distansakademin.oauth_0.Cognito.Cognito;
 
 @Controller
-//@RequestMapping("/auth")
 public class UserController {
 
     @GetMapping("/auth")
